@@ -1,6 +1,6 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
-import { buildSchema, GraphQLObjectType } from "graphql";
+import { buildSchema, GraphQLObjectType,GraphQLID,GraphQLString,GraphQLInt, GraphQLBoolean } from "graphql";
 import { Sequelize, Model, DataTypes } from 'sequelize';
 
 const ProductSchema = buildSchema(
@@ -11,11 +11,6 @@ const ProductSchema = buildSchema(
     }`
 );
 
-const RootQuery = new GraphQLObjectType({
-    name:()=>{
-        return 'hello world'    }
-
-}); 
 
 
  
