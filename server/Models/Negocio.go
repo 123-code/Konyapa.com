@@ -10,9 +10,9 @@ type NombreNegocio struct {
     ID          uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primaryKey"`
     Nombre string `json:"name"`
     Productos string `json:"productos"`
-    Propietario Profile `gorm:"foreignkey:ProfileID"`
 	Direccion string `json:"direccion"`
 	Web string `json:"web"`
+	ProfileID  uuid.UUID `gorm:"foreignKey:ProfileID"`
 }
 
 

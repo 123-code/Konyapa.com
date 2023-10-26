@@ -10,6 +10,10 @@ import (
 )
 
 
+
+
+
+
 func init(){
 	DB.DBconnect()
 }
@@ -26,6 +30,7 @@ func main() {
 
     router.GET("/",hello);
 	router.GET("/getalldata",endpoints.GetReservas);
+	router.POST("/createstore",endpoints.CreateNegocio);
 	router.POST("/createprofile",endpoints.CreateProfile);
 port := os.Getenv("PORT")
 	if(port == ""){
