@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useEffect } from "react"
 
 type User = {
     name?: string | null | undefined;
@@ -11,9 +12,31 @@ type Props = {
     pagetype: string,
 }
 
-export default function Card({ user, pagetype }: Props) {
+export default async function Card({ user, pagetype }: Props) {
 
     //console.log(user)
+    const userData = {
+        name: user?.name,
+        email: user?.email, 
+        image: user?.image
+      }
+
+   
+const res = await fetch('http://localhost:8080/createprofile', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(userData)
+})
+
+if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+
+   
 
     const greeting = user?.name ? (
         <div className="flex flex-col items-center p-6 bg-white rounded-lg font-bold text-5xl text-black">
