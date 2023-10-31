@@ -30,17 +30,20 @@ const res = await fetch('http://localhost:8080/createprofile', {
   body: JSON.stringify(userData)
 })
 
+
+  /*
 if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
   }
-
+ 
+*/
 
    
 
     const greeting = user?.name ? (
         <div className="flex flex-col items-center p-6 bg-white rounded-lg font-bold text-5xl text-black">
-            Hello {user?.name}!
+            Hola!, {user?.name}!
         </div>
     ) : null
 
@@ -66,7 +69,7 @@ if (!res.ok) {
             {greeting}
             {/* {emailDisplay} */}
             {userImage}
-            <p className="text-2xl text-center">{pagetype} Page!</p>
+            <p className="text-2xl text-center">Mi perfil</p>
         </section>
     )
 }
