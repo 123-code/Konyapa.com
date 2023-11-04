@@ -13,6 +13,7 @@ type NombreNegocio struct {
 	Direccion string `json:"direccion"`
 	Web string `json:"web"`
 	ProfileID  uuid.UUID `gorm:"foreignKey:ProfileID"`
+	Email  string `json:"email"`
 }
 
 

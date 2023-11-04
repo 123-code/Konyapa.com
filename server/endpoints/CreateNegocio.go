@@ -17,6 +17,7 @@ func CreateNegocio(c *gin.Context) {
 		Propietario uuid.UUID
 		Direccion string
 		Web string
+		Email string
 
 
 	}
@@ -41,6 +42,7 @@ func CreateNegocio(c *gin.Context) {
 		Direccion: reqbody.Direccion,
 		Web:       reqbody.Web,
 		ProfileID: reqbody.Propietario,
+		Email: reqbody.Email,
 	}
 	DB.DBconn.Create(&negocio)
 	c.JSON(http.StatusOK, gin.H{"message": "NombreNegocio created successfully"});
