@@ -5,7 +5,7 @@ import (
 	"server/DB"
 	"server/Models"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	//"github.com/google/uuid"
 	"fmt"
 )
 
@@ -14,7 +14,6 @@ func CreateNegocio(c *gin.Context) {
 	var reqbody struct {
 		Nombre string
 		Productos   string
-		Propietario uuid.UUID
 		Direccion string
 		Web string
 		Email string
@@ -41,7 +40,6 @@ func CreateNegocio(c *gin.Context) {
 		Productos: reqbody.Productos,
 		Direccion: reqbody.Direccion,
 		Web:       reqbody.Web,
-		ProfileID: reqbody.Propietario,
 		Email: reqbody.Email,
 	}
 	DB.DBconn.Create(&negocio)
