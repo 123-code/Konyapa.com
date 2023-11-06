@@ -13,9 +13,9 @@ export default async function ServerPage(){
       }  
 
     const session = await getServerSession(options);
-
+//'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
     if(!session){
-        redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server')
+        redirect('http://localhost:3000/api/auth/signin?callbackUrl=/Server')
     }
 
     return(
@@ -23,9 +23,9 @@ export default async function ServerPage(){
             <div className="flex justify-end">
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out"><Link href="/api/auth/signout">Salir</Link></button>
             </div>
-            <Card className="bg-gray-800 p-6 rounded-lg shadow-lg" user={session?.user} pagetype={"Server"} />
+            <Card  user={session?.user} pagetype={"Server"} />
             <div className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg p-6 text-2xl text-center">
-                <Link href='https://konyapa-com.vercel.app/Update'> gestionar mis negocios </Link>
+                <Link href='http://localhost:3000/Update'> gestionar mis negocios </Link>
             </div>
            <h1> aqui podras: </h1>
            <h2> ver tus tiendas virtuales</h2>

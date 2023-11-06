@@ -65,11 +65,14 @@ if (!res.ok) {
     ) : null
 
     return (
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <section className="flex flex-col gap-4">
             {greeting}
             {/* {emailDisplay} */}
             {userImage}
             <p className="text-2xl text-center">Mi perfil</p>
         </section>
+        </div>
+        
     )
 }
