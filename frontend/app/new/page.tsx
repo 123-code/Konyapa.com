@@ -17,7 +17,7 @@ export default function ClientForm({session}:any){
 
         e.preventDefault()
         
-        const res = await fetch('http://localhost:8080/createstore', {
+        const res = await fetch('https://konyapacom-production.up.railway.app/createstore', {
           method: 'POST',
           headers:{ 
             'Content-Type': 'application/json'

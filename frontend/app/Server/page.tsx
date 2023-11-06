@@ -15,7 +15,7 @@ export default async function ServerPage(){
     const session = await getServerSession();
 
     if(!session){
-        redirect('/api/auth/signin?callbackUrl=/server')
+        redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/server')
     }
 
     return(
