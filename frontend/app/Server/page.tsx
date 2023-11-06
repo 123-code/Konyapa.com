@@ -12,10 +12,10 @@ export default async function ServerPage(){
         NextResponse.redirect('/hello-nextjs') 
       } 
 
-    const session = await getServerSession();
+    const session = await getServerSession(options);
 
     if(!session){
-        redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/server')
+        redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server')
     }
 
     return(
