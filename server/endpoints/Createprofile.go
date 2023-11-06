@@ -37,7 +37,7 @@ func CreateProfile(c *gin.Context) {
     }
 
     // Create a new Profile
-    profile := models.Profile{
+    profile := models.Profile{ 
         UserName: reqbody.UserName,
         Email:    reqbody.Email,
     }
