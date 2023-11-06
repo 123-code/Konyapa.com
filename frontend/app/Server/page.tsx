@@ -23,7 +23,7 @@ export default async function ServerPage(){
         
         <li className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out"><Link href="/api/auth/signout">Salir</Link></li>
             <Card user={session?.user} pagetype={"Server"}/>
-            <ClientForm session={session?.user} />
+       
 
         </section>
     )

@@ -12,11 +12,18 @@ interface Profile {
 export default function Profiles() {
   const [showMenuFor, setShowMenuFor] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isAdding, setIsAdding] = useState(false);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [formValues, setFormValues] = useState({
     nombre: '',
     email: '',
+  });
+
+
+  const [AddformValues, setAddFormValues] = useState({
+    UserName: formValues.nombre, // Change from 'nombre' to 'UserName'
+      Email: formValues.email,    // Change from 'email' to 'Email'
+      NegocioName: '',  
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null); // To track the selected profile for update
@@ -30,6 +37,25 @@ export default function Profiles() {
 
     fetchProfiles();
   }, []);
+//'https://konyapacom-production.up.railway.app/createprofile'
+  const handleinput = async()=>{
+    const res = await fetch('http://localhost:8080/createprofile', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        UserName:AddformValues.UserName,
+        Email:AddformValues.Email,
+      }),
+    })
+    console.log(res)
+    if (res.ok){
+      console.log("ok")
+    }else{
+      console.log("error")
+    }
+  }
 
   const handleDelete = async (profileID: number) => {
     const res = await fetch(`https://konyapacom-production.up.railway.app/deleteprofile/${profileID}`, {
@@ -51,6 +77,12 @@ export default function Profiles() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+  };
+
+
+  const handleAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAddFormValues({ ...AddformValues, [name]: value });
   };
 
   const handleUpdate = async () => {
@@ -126,6 +158,36 @@ export default function Profiles() {
                   >
                     Cambiar datos
                   </button>
+                  <button className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" onClick={() => setIsAdding(true)}>Agregar nuevo</button>
+
+{isAdding && (
+  <>
+
+<input
+ className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
+ name="nombre"
+ value={AddformValues.UserName}
+ onChange={handleAddInputChange}
+/>
+   <input
+ className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
+ name="email"
+ value={AddformValues.Email}
+ onChange={handleAddInputChange}
+/>
+<input
+ className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
+ name="email"
+ value={AddformValues.NegocioName}
+ onChange={handleAddInputChange}
+/>
+<button
+ className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600"
+ onClick={handleinput}
+></button>
+  </>
+
+)}
                 </div>
               )}
             </button>
