@@ -14,19 +14,18 @@ export default function Profiles() {
   const [isLoading, setIsLoading] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [formValues, setFormValues] = useState({
+  const [addFormValues, setAddFormValues] = useState({
+    UserName: '',
+    Email: '',
+    NegocioName: '',  
+  });
+
+  const [updateFormValues, setUpdateFormValues] = useState({
     nombre: '',
     email: '',
   });
 
-
-  const [AddformValues, setAddFormValues] = useState({
-    UserName: formValues.nombre, // Change from 'nombre' to 'UserName'
-      Email: formValues.email,    // Change from 'email' to 'Email'
-      NegocioName: '',  
-  });
-
-  const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null); // To track the selected profile for update
+  const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -37,94 +36,87 @@ export default function Profiles() {
 
     fetchProfiles();
   }, []);
-//'https://konyapacom-production.up.railway.app/createprofile'
-  const handleinput = async()=>{
-    const res = await fetch('http://localhost:8080/createprofile', {
+
+  const handleAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAddFormValues({
+      ...addFormValues,
+      [name]: value,
+    });
+  };
+
+  const handleUpdateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUpdateFormValues({
+      ...updateFormValues,
+      [name]: value,
+    });
+  };
+
+  const handleAddProfile = async () => {
+    const res = await fetch('https://konyapacom-production.up.railway.app/createprofile', {
       method: 'POST',
-      headers:{
-        'Content-Type': 'application/json'
+      headers: {
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        UserName:AddformValues.UserName,
-        Email:AddformValues.Email,
-      }),
-    })
-    console.log(res)
-    if (res.ok){
-      console.log("ok")
-    }else{
-      console.log("error")
+      body: JSON.stringify(addFormValues),
+    });
+console.log(res)
+    if (res.ok) {
+      console.log('ok');
+      // Fetch updated data if necessary
+      const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
+      const data = await res.json();
+      setProfiles(data.profiles);
+    } else  {
+      console.log('error');
+      
     }
-  }
+  };
 
   const handleDelete = async (profileID: number) => {
     const res = await fetch(`https://konyapacom-production.up.railway.app/deleteprofile/${profileID}`, {
       method: 'DELETE',
     });
-    console.log(res)
+
     if (res.ok) {
-      // Profile deleted successfully, update the state
+      console.log('Profile deleted successfully');
+      // Fetch updated data if necessary
       const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
       const data = await res.json();
       setProfiles(data.profiles);
-      console.log(res)
-    }
-    else{
-      console.log("error",res)
+    } else {
+      console.log('Error deleting profile');
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-
-  const handleAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setAddFormValues({ ...AddformValues, [name]: value });
-  };
-
-  const handleUpdate = async () => {
+  const handleUpdateProfile = async () => {
     if (selectedProfileID === null) {
-      // Handle error or show a message that no profile is selected
       return;
     }
-  
-    // Display a loading indicator
+
     setIsLoading(true);
-  
+
     const res = await fetch(`https://konyapacom-production.up.railway.app/updateprofile/${selectedProfileID}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        nombre: formValues.nombre,
-        email: formValues.email,
-        profileId: selectedProfileID,
-      }),
+      body: JSON.stringify(updateFormValues),
     });
-    console.log(res)
+
     if (res.ok) {
-      // Profile updated successfully, update the state
+      console.log('Profile updated successfully');
+      // Fetch updated data if necessary
       const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
       const data = await res.json();
       setProfiles(data.profiles);
-      console.log(profiles)
-      const updatedProfiles = profiles.map((profile) =>
-        profile.ID === selectedProfileID
-          ? { ...profile, nombre: formValues.nombre, email: formValues.email }
-          : profile
-      );
-  
-      setProfiles(updatedProfiles);
+    } else {
+      console.log('Error updating profile');
     }
-  
-    // Reset the loading indicator
+
     setIsLoading(false);
   };
-  
 
   return (
     <div className="bg-gray-900 p-8 rounded-lg">
@@ -153,41 +145,52 @@ export default function Profiles() {
                   </button>
 
                   <button
-                    className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-yellow-500 hover:text-white"
-                    onClick={() => setSelectedProfileID(profile.ID)}
+                    className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover-bg-yellow-500 hover:text-white"
+                    onClick={() => {
+                      setSelectedProfileID(profile.ID);
+                      // Populate update form with the existing values
+                      setUpdateFormValues({
+                        nombre: profile.name,
+                        email: profile.email,
+                      });
+                    }}
                   >
                     Cambiar datos
                   </button>
+
                   <button className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" onClick={() => setIsAdding(true)}>Agregar nuevo</button>
 
-{isAdding && (
-  <>
-
-<input
- className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
- name="nombre"
- value={AddformValues.UserName}
- onChange={handleAddInputChange}
-/>
-   <input
- className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
- name="email"
- value={AddformValues.Email}
- onChange={handleAddInputChange}
-/>
-<input
- className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
- name="email"
- value={AddformValues.NegocioName}
- onChange={handleAddInputChange}
-/>
-<button
- className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600"
- onClick={handleinput}
-></button>
-  </>
-
-)}
+                  {isAdding && (
+                    <div className="mt-4">
+                      <input
+                        className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
+                        name="UserName"
+                        placeholder="Nombre"
+                        value={addFormValues.UserName}
+                        onChange={handleAddInputChange}
+                      />
+                      <input
+                        className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
+                        name="Email"
+                        placeholder="Email"
+                        value={addFormValues.Email}
+                        onChange={handleAddInputChange}
+                      />
+                      <input
+                        className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
+                        name="NegocioName"
+                        placeholder="Negocio"
+                        value={addFormValues.NegocioName}
+                        onChange={handleAddInputChange}
+                      />
+                      <button
+                        className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600"
+                        onClick={handleAddProfile}
+                      >
+                        Agregar
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </button>
@@ -196,15 +199,23 @@ export default function Profiles() {
               <div className="mt-4">
                 <input
                   className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
+                  name="nombre"
+                  placeholder="Nombre"
+                  value={updateFormValues.nombre}
+                  onChange={handleUpdateInputChange}
+                />
+                <input
+                  className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
                   name="email"
-                  value={formValues.email}
-                  onChange={handleInputChange}
+                  placeholder="Email"
+                  value={updateFormValues.email}
+                  onChange={handleUpdateInputChange}
                 />
                 <button
-                  className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600"
-                  onClick={handleUpdate}
+                  className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover-bg-blue-600"
+                  onClick={handleUpdateProfile}
                 >
-                  Save
+                  Guardar
                 </button>
               </div>
             )}
