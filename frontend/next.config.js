@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
 
+export default function nextConfig() {
+  return {
     images: {
-        domains: ['avatars.githubusercontent.com'],
-      }
+      domains: ['avatars.githubusercontent.com']
+    }
+  }
 }
-
-module.exports = nextConfig
