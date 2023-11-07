@@ -24,7 +24,7 @@ El proyecto se encuentra en un ambiente de produccion, se lo puede usar desde cu
 /**************************************************************************************************************************************************************************************/
 Para observar el proyecto: 
 
-ingresar al url: https://konyapa-com.vercel.app/
+ingresar al url: https://konyapa-com.vercel.app/Server
 
 al ser un usuario nuevo, se mostrara una pantalla de login. 
 
