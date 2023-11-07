@@ -27,7 +27,7 @@ export default async function AddNegocio({headers,data}:any) {
           const userId = session.user
         data.preventDefault()
         
-        const res = await fetch('localhost:8080/createstore', {
+        const res = await fetch('https://konyapacom-production.up.railway.app/createstore', {
           method: 'POST',
           headers: headers,
           body: JSON.stringify({

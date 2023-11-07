@@ -22,7 +22,7 @@ export default async function Card({ user, pagetype }: Props) {
       }
 
    
-const res = await fetch('http://localhost:8080/createprofile', {
+const res = await fetch('https://konyapacom-production.up.railway.app/createprofile', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
