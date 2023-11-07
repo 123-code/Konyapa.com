@@ -24,7 +24,7 @@ export default function UpdateForm({profileid}:any){
 
         e.preventDefault()
         
-        const res = await fetch(`http://localhost:8080/updateprofile/${profileid}`, {
+        const res = await fetch(`https://konyapacom-production.up.railway.app/${profileid}`, {
             method: 'UPDATE',
           headers:{
             'Content-Type': 'application/json'
