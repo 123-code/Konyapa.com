@@ -27,11 +27,14 @@ export default async function ServerPage(){
             <div className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg p-6 text-2xl text-center">
                 <Link href='https://konyapa-com.vercel.app/Update'> gestionar mis negocios </Link>
             </div>
-           <h1> aqui podras: </h1>
+            <div className="text-2xl text-center">
+            <h1> aqui podras: </h1>
            <h2> ver tus tiendas virtuales</h2>
            <h2> cambiar el nombre de tu tienda virtual</h2>
            <h2> eliminar si ya no la usas </h2>
            <Footer/>
+            </div>
+         
         </section>
        
     )

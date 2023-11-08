@@ -27,7 +27,20 @@ export default function Profiles() {
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
 
-  
+
+  useEffect(() => {
+    const handleClickOutside = (event:any) => {
+      if (showMenuFor && !event.target.closest('.dropdown')) {
+        setShowMenuFor(0 as number);
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [showMenuFor, setShowMenuFor]);
+
+
+
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -38,6 +51,9 @@ export default function Profiles() {
 
     fetchProfiles();
   }, []);
+
+
+  
 
   const handleAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -121,16 +137,17 @@ console.log(res)
   };
 
   return (
-    <div className="bg-gray-900 p-8 rounded-lg">
-      <h1>Perfiles</h1>
+    <div className="bg-gray-900 min-h-screen  justify-center items-center">
+      <h1 className="text-xl font-bold text-white justify-center items-center">Negocios</h1>
 
       {profiles.length === 0 ? (
-        <p>Loading...</p>
+        <p>Cargando perfiles...</p>
       ) : (
         profiles.map((profile) => (
           <div className="bg-teal-500 hover:none rounded-lg p-4 mb-2 justify-center items-center w-100" key={profile.ID}>
-            <p className="text-xl font-bold text-white">{profile.name}</p>
-            <p className="text-xl font-bold text-white">{profile.email}</p>
+            <p className="text-xl font-bold text-white text-center">{profile.name}</p>
+            <p className="text-xl font-bold text-white text center">{profile.email}</p>
+            
             <button
               className="relative bg-transparent hover:bg-teal-700 text-teal-200 font-semibold hover:text-white py-2 px-4 rounded-full transition"
               onClick={() => setShowMenuFor(profile.ID)}
@@ -160,7 +177,13 @@ console.log(res)
                     Cambiar datos
                   </button>
 
-                  <button className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" onClick={() => setIsAdding(true)}>Agregar nuevo</button>
+                  <div className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" >
+                    <Link href="http://localhost:3000/AddInfo">
+                    Agregar nuevo
+                    </Link>
+                    
+                  
+                  </div>
 
                   {isAdding && (
                     <div className="mt-4">
