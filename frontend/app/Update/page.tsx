@@ -26,16 +26,8 @@ export default function Profiles() {
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
-  useEffect(() => {
-    const handleClickOutside = (event:any) => {
-      if (showMenuFor && !event.target.closest('.dropdown')) {
-        setShowMenuFor(0 as number);
-      }
-    }
 
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [showMenuFor, setShowMenuFor]);
+  
 
   useEffect(() => {
     const fetchProfiles = async () => {
