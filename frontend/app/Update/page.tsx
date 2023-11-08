@@ -26,6 +26,16 @@ export default function Profiles() {
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
+  useEffect(() => {
+    const handleClickOutside = (event:any) => {
+      if (showMenuFor && !event.target.closest('.dropdown')) {
+        setShowMenuFor(0 as number);
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [showMenuFor, setShowMenuFor]);
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -119,7 +129,7 @@ console.log(res)
   };
 
   return (
-    <div className="bg-gray-900 p-8 rounded-lg">
+    <div className="sr-only bg-gray-900 p-8 rounded-lg md:block h-screen">
       <h1>Perfiles</h1>
 
       {profiles.length === 0 ? (
