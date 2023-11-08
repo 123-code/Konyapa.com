@@ -129,7 +129,7 @@ console.log(res)
   };
 
   return (
-    <div className="sr-only bg-gray-900 p-8 rounded-lg md:block h-screen">
+    <div className="bg-gray-900 p-8 rounded-lg">
       <h1>Perfiles</h1>
 
       {profiles.length === 0 ? (
