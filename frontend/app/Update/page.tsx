@@ -189,7 +189,7 @@ console.log(res)
                   </button>
 
                   <div className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" >
-                    <Link href="https://konyapa-com.vercel.app/AddInfo">
+                    <Link href="http://localhost:3000/AddInfo">
                     Agregar nuevo
                     </Link>
                     
