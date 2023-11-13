@@ -34,7 +34,7 @@ export default async function Profiles() {
   const session = await getServerSession(options);
   //'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
       if(!session){
-          redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server')
+          redirect('http://localhost:3000/api/auth/signin?callbackUrl=/Server')
       }
   
 
@@ -189,7 +189,7 @@ console.log(res)
                   </button>
 
                   <div className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" >
-                    <Link href="https://konyapa-com.vercel.app/AddInfo">
+                    <Link href="http://localhost:3000/AddInfo">
                     Agregar nuevo
                     </Link>
                     

@@ -15,7 +15,7 @@ export default async function ServerPage(){
     const session = await getServerSession(options);
 //'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
     if(!session){
-        redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server')
+        redirect('http://localhost:3000/api/auth/signin?callbackUrl=/Server')
     }
 
     return(
@@ -25,7 +25,7 @@ export default async function ServerPage(){
             </div>
             <Card  user={session?.user} pagetype={"Server"} />
             <div className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg p-6 text-2xl text-center">
-                <Link href='https://konyapa-com.vercel.app/Update'> gestionar mis negocios </Link>
+                <Link href='http://localhost:3000/Update'> gestionar mis negocios </Link>
             </div>
             <div className="text-2xl text-center">
             <h1> aqui podras: </h1>
