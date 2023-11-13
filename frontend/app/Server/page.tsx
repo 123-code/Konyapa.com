@@ -14,10 +14,10 @@ export default async function ServerPage(){
 
     const session = await getServerSession(options);
 //'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
-    if(!session){
+ /*   if(!session){
         redirect('http://localhost:3000/api/auth/signin?callbackUrl=/Server')
     }
-
+*/
     return(
         <section className="flex flex-col gap-6 bg-gray-900 text-white p-6">
             <div className="flex justify-end">

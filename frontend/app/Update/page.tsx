@@ -11,9 +11,9 @@ interface Profile {
   ID: number;
   name: string;
   email: string;
-}
+} 
 
-export default async function Profiles() {
+export default function Profiles() {
   const [showMenuFor, setShowMenuFor] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -30,14 +30,14 @@ export default async function Profiles() {
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
-
+/*
   const session = await getServerSession(options);
   //'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
       if(!session){
           redirect('http://localhost:3000/api/auth/signin?callbackUrl=/Server')
       }
   
-
+*/
 
   useEffect(() => {
     const handleClickOutside = (event:any) => {
