@@ -80,7 +80,7 @@ export default function AddInfo(){
       className="bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600"
       onClick={handleAddProfile}
     >
-          <Link href="http://localhost:3000/Update">
+          <Link href="https://konyapa-com.vercel.app/Update">
           Agregar
         </Link>
     </button>
