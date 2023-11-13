@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
+
 
 interface Profile {
   ID: number;
@@ -9,7 +13,7 @@ interface Profile {
   email: string;
 }
 
-export default function Profiles() {
+export default async function Profiles() {
   const [showMenuFor, setShowMenuFor] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -26,6 +30,13 @@ export default function Profiles() {
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
+
+  const session = await getServerSession(options);
+  //'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
+      if(!session){
+          redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server')
+      }
+  
 
 
   useEffect(() => {
@@ -184,38 +195,6 @@ console.log(res)
                     
                   
                   </div>
-
-                  {isAdding && (
-                    <div className="mt-4">
-                      <input
-                        className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
-                        name="UserName"
-                        placeholder="Nombre"
-                        value={addFormValues.UserName}
-                        onChange={handleAddInputChange}
-                      />
-                      <input
-                        className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
-                        name="Email"
-                        placeholder="Email"
-                        value={addFormValues.Email}
-                        onChange={handleAddInputChange}
-                      />
-                      <input
-                        className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
-                        name="NegocioName"
-                        placeholder="Negocio"
-                        value={addFormValues.NegocioName}
-                        onChange={handleAddInputChange}
-                      />
-                      <button
-                        className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600"
-                        onClick={handleAddProfile}
-                      >
-                        Agregar
-                      </button>
-                    </div>
-                  )}
                 </div>
               )}
             </button>
