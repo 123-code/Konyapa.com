@@ -2,9 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
 
 
 interface Profile {
@@ -30,14 +27,14 @@ export default async function Profiles() {
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
-
+/*
   const session = await getServerSession(options);
   //'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
       if(!session){
           redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server')
       }
   
-
+*/
 
   useEffect(() => {
     const handleClickOutside = (event:any) => {
@@ -189,7 +186,7 @@ console.log(res)
                   </button>
 
                   <div className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" >
-                    <Link href="http://localhost:3000/AddInfo">
+                    <Link href="https://konyapa-com.vercel.app/AddInfo">
                     Agregar nuevo
                     </Link>
                     
