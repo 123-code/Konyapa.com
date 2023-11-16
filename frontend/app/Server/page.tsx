@@ -21,7 +21,7 @@ export default async function ServerPage(){
     return(
         <section className="flex flex-col gap-6 bg-gray-900 text-white p-6">
             <div className="flex justify-end">
-                <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out"><Link href="/api/auth/signout">Salir</Link></button>
+               
             </div>
             <Card  user={session?.user} pagetype={"Server"} />
             <div className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg p-6 text-2xl text-center">
