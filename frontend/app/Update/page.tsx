@@ -10,7 +10,7 @@ interface Profile {
   email: string;
 }
 
-export default async function Profiles() {
+export default function Profiles() {
   const [showMenuFor, setShowMenuFor] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
