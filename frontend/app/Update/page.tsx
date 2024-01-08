@@ -198,7 +198,7 @@ onClick={handleUpdateProfile}
 >
 Guardar
 
-
+</div>
 )}
 
 ))
