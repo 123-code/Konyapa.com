@@ -1,8 +1,5 @@
-"use client"
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
 
 interface Profile {
   ID: number;
@@ -22,22 +19,14 @@ export default function Profiles() {
   });
 
   const [updateFormValues, setUpdateFormValues] = useState({
-    UserName: '',
-    Email: '',
+    name: '', // Update key to 'name' instead of 'UserName'
+    email: '', // Update key to 'email' instead of 'Email'
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
-/*
-  const session = await getServerSession(options);
-  //'https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server'
-      if(!session){
-          redirect('https://konyapa-com.vercel.app/api/auth/signin?callbackUrl=/Server')
-      }
-  
-*/
 
   useEffect(() => {
-    const handleClickOutside = (event:any) => {
+    const handleClickOutside = (event: any) => {
       if (showMenuFor && !event.target.closest('.dropdown')) {
         setShowMenuFor(0 as number);
       }
@@ -46,9 +35,6 @@ export default function Profiles() {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showMenuFor, setShowMenuFor]);
-
-
-
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -59,9 +45,6 @@ export default function Profiles() {
 
     fetchProfiles();
   }, []);
-
-
-  
 
   const handleAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -87,16 +70,14 @@ export default function Profiles() {
       },
       body: JSON.stringify(addFormValues),
     });
-console.log(res)
+
     if (res.ok) {
-      console.log('ok');
       // Fetch updated data if necessary
       const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
       const data = await res.json();
       setProfiles(data.profiles);
-    } else  {
-      console.log('error');
-      
+    } else {
+      console.log('Error adding profile');
     }
   };
 
@@ -137,6 +118,7 @@ console.log(res)
       const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
       const data = await res.json();
       setProfiles(data.profiles);
+      setSelectedProfileID(null); // Reset selectedProfileID after successful update
     } else {
       console.log('Error updating profile');
     }
@@ -155,7 +137,7 @@ console.log(res)
           <div className="bg-teal-500 hover:none rounded-lg p-4 mb-2 justify-center items-center w-100" key={profile.ID}>
             <p className="text-xl font-bold text-white text-center">{profile.name}</p>
             <p className="text-xl font-bold text-white text center">{profile.email}</p>
-            
+
             <button
               className="relative bg-transparent hover:bg-teal-700 text-teal-200 font-semibold hover:text-white py-2 px-4 rounded-full transition"
               onClick={() => setShowMenuFor(profile.ID)}
@@ -177,20 +159,18 @@ console.log(res)
                       setSelectedProfileID(profile.ID);
                       // Populate update form with the existing values
                       setUpdateFormValues({
-                        UserName: profile.name,
-                        Email: profile.Email,
+                        name: profile.name,
+                        email: profile.email,
                       });
                     }}
                   >
                     Cambiar datos
                   </button>
 
-                  <div className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white" >
+                  <div className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover:bg-green-500 hover:text-white">
                     <Link href="https://konyapa-com.vercel.app/AddInfo">
-                    Agregar nuevo
+                      Agregar nuevo
                     </Link>
-                    
-                  
                   </div>
                 </div>
               )}
@@ -200,29 +180,29 @@ console.log(res)
               <div className="mt-4">
                 <input
                   className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
-                  name="nombre"
+                  name="name" // Change to 'name' instead of 'nombre'
                   placeholder="Nombre"
-                  value={updateFormValues.nombre}
+                  value={updateFormValues.name} // Update to 'name' instead of 'nombre'
                   onChange={handleUpdateInputChange}
                 />
                 <input
                   className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
-                  name="email"
+                  name="email" // Change to 'email' instead of 'email'
                   placeholder="Email"
-                  value={updateFormValues.email}
+                  value={updateFormValues.email} // Update to 'email' instead of 'email'
                   onChange={handleUpdateInputChange}
                 />
                 <button
-                  className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover-bg-blue-600"
-                  onClick={handleUpdateProfile}
-                >
-                  Guardar
-                </button>
-              </div>
-            )}
-          </div>
-        ))
-      )}
-    </div>
-  );
+                  className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover-bg-blue-600”
+onClick={handleUpdateProfile}
+>
+Guardar
+
+
+)}
+
+))
+)}
+
+);
 }
