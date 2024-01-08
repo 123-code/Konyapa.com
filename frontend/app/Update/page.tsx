@@ -22,8 +22,8 @@ export default function Profiles() {
   });
 
   const [updateFormValues, setUpdateFormValues] = useState({
-    nombre: '',
-    email: '',
+    UserName: '',
+    Email: '',
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
