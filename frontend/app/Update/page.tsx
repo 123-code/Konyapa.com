@@ -177,7 +177,7 @@ console.log(res)
                       setSelectedProfileID(profile.ID);
                       // Populate update form with the existing values
                       setUpdateFormValues({
-                        UserName: profile.UserName,
+                        UserName: profile.name,
                         Email: profile.Email,
                       });
                     }}
