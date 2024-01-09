@@ -3,13 +3,15 @@ import time
 import openai
 import os 
 from pinecone_datasets import load_dataset
-from langchain.web_utils import load_url_documents
+
+from langchain_community.document_loaders import UnstructuredURLLoader
 urls = ["https://supercoin.it/ec-trading-platform/16585?sorgente=2&gclid=CjwKCAiA1-6sBhAoEiwArqlGPqmVV4qQcyzMIkFQS8BE1bKihdspihpfO9gHTQqHFSTpB0MRjiPDLhoCA0sQAvD_BwE", "https://latam.kaspersky.com/resource-center/definitions/what-is-cryptocurrency", "https://es.wikipedia.org/wiki/Criptomoneda"]
 from langchain.schema import Document
 
 
-documents = load_url_documents(urls)
-documents = [Document(page_content=doc.content, url=doc.url) for doc in documents]
+loader = UnstructuredURLLoader(urls=urls)
+data = loader.load()
+documents = [Document(page_content=doc.content, url=doc.url) for doc in data]
 
 pinecone.init(api_key="d51298f1-ea51-4f89-84eb-d7a05e4a730f", environment="us-west1-gcp-free")
 
