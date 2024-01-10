@@ -15,12 +15,12 @@ export default function Profiles() {
   const [addFormValues, setAddFormValues] = useState({
     UserName: '',
     Email: '',
-    NegocioName: '',  
+    NegocioName: '',
   });
 
   const [updateFormValues, setUpdateFormValues] = useState({
-    name: '', // Update key to 'name' instead of 'UserName'
-    email: '', // Update key to 'email' instead of 'Email'
+    name: '',
+    email: '',
   });
 
   const [selectedProfileID, setSelectedProfileID] = useState<number | null>(null);
@@ -30,7 +30,7 @@ export default function Profiles() {
       if (showMenuFor && !event.target.closest('.dropdown')) {
         setShowMenuFor(0 as number);
       }
-    }
+    };
 
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
@@ -72,7 +72,6 @@ export default function Profiles() {
     });
 
     if (res.ok) {
-      // Fetch updated data if necessary
       const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
       const data = await res.json();
       setProfiles(data.profiles);
@@ -88,7 +87,6 @@ export default function Profiles() {
 
     if (res.ok) {
       console.log('Profile deleted successfully');
-      // Fetch updated data if necessary
       const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
       const data = await res.json();
       setProfiles(data.profiles);
@@ -114,11 +112,10 @@ export default function Profiles() {
 
     if (res.ok) {
       console.log('Profile updated successfully');
-      // Fetch updated data if necessary
       const res = await fetch('https://konyapacom-production.up.railway.app/getalldata');
       const data = await res.json();
       setProfiles(data.profiles);
-      setSelectedProfileID(null); // Reset selectedProfileID after successful update
+      setSelectedProfileID(null);
     } else {
       console.log('Error updating profile');
     }
@@ -127,7 +124,7 @@ export default function Profiles() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen  justify-center items-center">
+    <div className="bg-gray-900 min-h-screen justify-center items-center">
       <h1 className="text-xl font-bold text-white justify-center items-center">Negocios</h1>
 
       {profiles.length === 0 ? (
@@ -157,7 +154,6 @@ export default function Profiles() {
                     className="w-full block text-left px-4 py-2 text-sm text-gray-800 hover-bg-yellow-500 hover:text-white"
                     onClick={() => {
                       setSelectedProfileID(profile.ID);
-                      // Populate update form with the existing values
                       setUpdateFormValues({
                         name: profile.name,
                         email: profile.email,
@@ -180,29 +176,26 @@ export default function Profiles() {
               <div className="mt-4">
                 <input
                   className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
-                  name="name" // Change to 'name' instead of 'nombre'
+                  name="name"
                   placeholder="Nombre"
-                  value={updateFormValues.name} // Update to 'name' instead of 'nombre'
+                  value={updateFormValues.name}
                   onChange={handleUpdateInputChange}
                 />
                 <input
                   className="w-full bg-gray-800 rounded-full px-4 py-2 outline-none text-gray-100"
-                  name="email" // Change to 'email' instead of 'email'
+                  name="email"
                   placeholder="Email"
-                  value={updateFormValues.email} // Update to 'email' instead of 'email'
+                  value={updateFormValues.email}
                   onChange={handleUpdateInputChange}
                 />
-                <button
-                  className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover-bg-blue-600”
-onClick={handleUpdateProfile}
->
-Guardar
-
-</div>
-)}
-
-))
-)}
-
-);
+                <button onClick={handleUpdateProfile} className="mt-4 bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover-bg-blue-600">
+                  Guardar
+                </button>
+              </div>
+            )}
+          </div>
+        ))
+      )}
+    </div>
+  );
 }
